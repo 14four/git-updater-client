@@ -1,7 +1,6 @@
 #! /usr/bin/env node
 
 var io = require("socket.io-client");
-var async = require("async");
 var exec = require("child_process").exec;
 var argv = require('yargs')
             .usage('Usage: $0 <command> [options]')
@@ -40,7 +39,7 @@ console.log("Using branch:[" + b + "]");
 
 socket.on("update", function(data){
   console.log("Update message received.", data);
-  var child = exec("git pull origin "+(argv.branch ? argv.branch : ""));
+  var child = exec("git pull origin "+b);
   child.stdout.on('data', function(data) {
       process.stdout.write(data);
   });
