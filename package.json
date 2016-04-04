@@ -1,11 +1,14 @@
 {
   "name": "git-updater-client",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Starts a websocket connection to server for the purpose of remote git updates.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "git-updater-client-exec": "app.js"
   },
   "license": "ISC",
   "author": "Grant Bishop",
@@ -13,5 +16,10 @@
     "async": "^2.0.0-rc.2",
     "socket.io-client": "^1.4.5",
     "yargs": "^4.3.2"
+  },
+  "repository" :
+  {
+    "type" : "git"
+    , "url" : "https://github.com/14four/git-updater-client"
   }
 }

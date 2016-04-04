@@ -21,7 +21,6 @@ if (argv._.length == 0)
   return;
 }
 
-
 var socket = io(argv._[0])
 socket.on('connect', function(){ console.log("Connected"); });
 socket.on('connect_error', function(){ console.log("Error connecting to: " + argv._[0], "retrying..."); });
