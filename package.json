@@ -1,6 +1,6 @@
 {
   "name": "git-updater-client",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Starts a websocket connection to server for the purpose of remote git updates.",
   "main": "app.js",
   "scripts": {
