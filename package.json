@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "git-updater-client-exec": "app.js"
+    "git-updater-client": "node app.js"
   },
   "license": "ISC",
   "author": "Grant Bishop",
