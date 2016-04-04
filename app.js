@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 var io = require("socket.io-client");
 var async = require("async");
 var exec = require("child_process").exec;
