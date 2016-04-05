@@ -22,12 +22,6 @@ if (argv._.length == 0)
   return;
 }
 
-var socket = io(argv._[0])
-socket.on('connect', function(){ console.log("Connected"); });
-socket.on('connect_error', function(){ console.log("Error connecting to: " + argv._[0], "retrying..."); });
-socket.on('event', function(data){});
-socket.on('disconnect', function(){ console.log("Disconnected."); });
-
 var c = argv.command;
 if (c)
   console.log("Executing command after update:[" + c + "]");
@@ -37,8 +31,29 @@ if (!b)
   b = "master";
 console.log("Using branch:[" + b + "]");
 
+var socket = io(argv._[0])
+socket.on('connect', function()
+{
+  console.log("Connected");
+  // Connect to server and send current hash to know whether or not to pull.
+  exec("git rev-parse HEAD", function(err, stdout, stderr)
+  {
+    var currentHash = stdout;
+    socket.emit("check", { hash:currentHash.replace(/\n/, ""), branch:argv.branch });
+  });
+});
+socket.on('connect_error', function(){ console.log("Error connecting to: " + argv._[0], "retrying..."); });
+socket.on('event', function(data){});
+socket.on('disconnect', function(){ console.log("Disconnected."); });
+
 socket.on("update", function(data){
   console.log("Update message received.", data);
+  if (data.branch != argv.branch)
+  {
+    console.log('Not my branch, ignoring update request.');
+    return;
+  }
+
   var child = exec("git pull origin "+b);
   child.stdout.on('data', function(data) {
       process.stdout.write(data);
